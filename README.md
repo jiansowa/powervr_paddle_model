@@ -160,7 +160,8 @@ python tools/test_egret.py -c ./configs/image_classification/EfficientNetB0.yaml
 |VGG16<br>(d8-w8-b16)|null|null|null|null|-|
 |DarkNet53<br>(d16-w16-b16)|76.8|93.4|null|null|-|
 |DarkNet53<br>(non-quant)|76.6|93.4|null|null|[link](https://paddle-imagenet-models-name.bj.bcebos.com/dygraph/inference/DarkNet53_infer.tar)|
-|DarkNet53<br>(d8-w8-b16)|null|null|null|null|-|
+|DarkNet53<br>(d8-w8-b16)|-|-|-|-|-|
+
 
 
 
