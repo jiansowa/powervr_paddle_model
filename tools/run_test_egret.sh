@@ -1,14 +1,15 @@
 #!/bin/bash
 # run at PaddleClas
-
 #ImageNetValRoot=/home/jiansowa/data/imagenet_aiia/valset
 #ImageNetValLabel=/home/jiansowa/data/imagenet_aiia/valset/val.txt
-ImageNetValRoot=/home/jasonwang/data/imagenet_aiia/valset
-ImageNetValLabel=/home/jasonwang/data/imagenet_aiia/valset/val.txt
+ImageNetValRoot=/home/asa/powervr_test/imagenet_aiia/valset
+ImageNetValLabel=/home/asa/powervr_test/imagenet_aiia/valset/val.txt
 
-
+CityscapesValRoot=/home/asa/PaddleSeg/PaddleSeg/data/leftImg8bit/val
+CityscapesValLabel=/home/asa/PaddleSeg/PaddleSeg/data/gtFine/val
 Model=EfficientNetB0
-#Model=MobileNetV1_ssld
+# Model=HRNet_Contrast_W48
+# Model=MobileNetV1_ssld
 #Model=MobileNetV2_ssld
 #Model=MobileNetV3_large_ssld
 #Model=MobileNetV3_small_ssld
@@ -16,15 +17,14 @@ Model=EfficientNetB0
 #Model=HRNet_W48_C_ssld
 
 ## 'eval': network(in framework), pretrain parameter; 'infer': inference model
-Mode='run'	
+Mode = 'run'
 #Mode='debug'
-
 if [ $Model == 'EfficientNetB0' ]; then
   if [ $Mode = 'debug' ]
   then
       printf "Debug mode"
       python -m pdb tools/test_egret.py \
-      -c ./configs/image_classification/EfficientNetB0.yaml \
+      -c ./configs/image_segmentation/EfficientNetB0.yaml \
       -o DataLoader.Eval.dataset.image_root=${ImageNetValRoot}	\
       -o DataLoader.Eval.dataset.cls_label_path=${ImageNetValLabel} \
       -o DataLoader.Eval.sampler.batch_size=1

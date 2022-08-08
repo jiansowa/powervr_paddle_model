@@ -6,7 +6,7 @@ import importlib
 from utils import logger
 
 from .dataloader import BatchSampler, DataLoader
-from .dataset.imagenet_dataset import ImageNetDataset
+from .dataset.imagenet_dataset import ImageNetDataset, Cityscapes
 from .utils import create_operators
 from .postprocess import build_postprocess
 #from .preprocess import transform as preproc_transform
