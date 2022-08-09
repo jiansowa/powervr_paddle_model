@@ -7,8 +7,8 @@ ImageNetValLabel=/home/asa/powervr_test/imagenet_aiia/valset/val.txt
 
 CityscapesValRoot=/home/asa/PaddleSeg/PaddleSeg/data/leftImg8bit/val
 CityscapesValLabel=/home/asa/PaddleSeg/PaddleSeg/data/gtFine/val
-Model=EfficientNetB0
-# Model=HRNet_Contrast_W48
+# Model=EfficientNetB0
+Model=HRNet_Contrast_W48
 # Model=MobileNetV1_ssld
 #Model=MobileNetV2_ssld
 #Model=MobileNetV3_large_ssld
@@ -19,21 +19,21 @@ Model=EfficientNetB0
 ## 'eval': network(in framework), pretrain parameter; 'infer': inference model
 Mode = 'run'
 #Mode='debug'
-if [ $Model == 'EfficientNetB0' ]; then
+if [ $Model == 'HRNet_Contrast_W48' ]; then
   if [ $Mode = 'debug' ]
   then
       printf "Debug mode"
       python -m pdb tools/test_egret.py \
-      -c ./configs/image_segmentation/EfficientNetB0.yaml \
-      -o DataLoader.Eval.dataset.image_root=${ImageNetValRoot}	\
-      -o DataLoader.Eval.dataset.cls_label_path=${ImageNetValLabel} \
+      -c ./configs/image_segmentation/HRNet_Contrast_W48.yaml \
+      -o DataLoader.Eval.dataset.image_root=${CityscapesValRoot}	\
+      -o DataLoader.Eval.dataset.cls_label_path=${CityscapesValLabel} \
       -o DataLoader.Eval.sampler.batch_size=1
   else
       printf "Run mode"
       python tools/test_egret.py \
-      -c ./configs/image_classification/EfficientNetB0.yaml \
-      -o DataLoader.Eval.dataset.image_root=${ImageNetValRoot}	\
-      -o DataLoader.Eval.dataset.cls_label_path=${ImageNetValLabel} \
+      -c ./configs/image_segmentation/HRNet_Contrast_W48.yaml \
+      -o DataLoader.Eval.dataset.image_root=${CityscapesValRoot}	\
+      -o DataLoader.Eval.dataset.cls_label_path=${CityscapesValLabel} \
       -o DataLoader.Eval.sampler.batch_size=1
 
       #-o Global.mode=	\
