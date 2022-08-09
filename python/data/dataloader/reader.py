@@ -1,7 +1,8 @@
 import numpy as np
 from data.sampler.batch_sampler import BatchSampler
-from data.dataset import Dataset#, IterableDataset
-
+from data.dataset import IterableDataset, MapDataset
+from data.utils.collate import default_collate_fn
+from data.dataset.fetch import MapDatasetFetcher, IterDatasetFetcher
 
 __all__ = ['DataLoader']
 
@@ -13,7 +14,8 @@ class DataLoader(object):
                  batch_sampler=None,
                  batch_size=1,
                  shuffle=False,
-                 drop_last=False):
+                 drop_last=False,
+                 collate_fn=default_collate_fn):
         self.dataset = dataset
 
         if batch_sampler is not None:
@@ -36,6 +38,13 @@ class DataLoader(object):
                 shuffle=shuffle,
                 drop_last=drop_last)
 
+        if isinstance(dataset, IterableDataset):
+            self.fetcher = IterDatasetFetcher(dataset, collate_fn)
+        elif isinstance(dataset, MapDataset):
+            self.fetcher = MapDatasetFetcher(dataset, collate_fn)
+        else:
+            raise TypeError("dataset type must be IterableDataset or MapDataset")
+
         self.drop_last = drop_last
         self._sampler_iter = iter(self.batch_sampler)
 
@@ -44,14 +53,8 @@ class DataLoader(object):
 
     def __next__(self):
         batch_indices = next(self._sampler_iter)
-        data = []
-        label = []
-        for idx in batch_indices:
-            data.append(self.dataset[idx][0])
-            label.append(self.dataset[idx][1])
-        data = np.array(data)
-        label = np.array(label)
-        return data, label
+        data = self.fetcher.fetch(batch_indices)
+        return data
 
     def __iter__(self):
         return self

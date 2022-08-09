@@ -1,2 +1,3 @@
-from .dataset import Dataset, IterableDataset
+from .dataset import Dataset, IterableDataset, MapDataset
 from  .imagenet_dataset import ImageNetDataset
+from .coco_dataset import COCODataset

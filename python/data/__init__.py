@@ -10,6 +10,7 @@ from .dataset.imagenet_dataset import ImageNetDataset
 from .utils import create_operators
 from .postprocess import build_postprocess
 #from .preprocess import transform as preproc_transform
+from .dataset.coco_dataset import COCODataset
 
 
 def build_preprocess(params):
