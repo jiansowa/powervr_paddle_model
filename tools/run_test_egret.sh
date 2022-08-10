@@ -26,14 +26,14 @@ if [ $Model == 'HRNet_Contrast_W48' ]; then
       python -m pdb tools/test_egret.py \
       -c ./configs/image_segmentation/HRNet_Contrast_W48.yaml \
       -o DataLoader.Eval.dataset.image_root=${CityscapesValRoot}	\
-      -o DataLoader.Eval.dataset.cls_label_path=${CityscapesValLabel} \
+      -o DataLoader.Eval.dataset.label_path=${CityscapesValLabel} \
       -o DataLoader.Eval.sampler.batch_size=1
   else
       printf "Run mode"
       python tools/test_egret.py \
       -c ./configs/image_segmentation/HRNet_Contrast_W48.yaml \
       -o DataLoader.Eval.dataset.image_root=${CityscapesValRoot}	\
-      -o DataLoader.Eval.dataset.cls_label_path=${CityscapesValLabel} \
+      -o DataLoader.Eval.dataset.label_path=${CityscapesValLabel} \
       -o DataLoader.Eval.sampler.batch_size=1
 
       #-o Global.mode=	\

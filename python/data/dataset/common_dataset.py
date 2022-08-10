@@ -12,10 +12,10 @@ class CommonDataset(Dataset):
     def __init__(
             self,
             image_root,
-            cls_label_path,
+            label_path,
             transform_ops=None, ):
         self._img_root = image_root
-        self._cls_path = cls_label_path
+        self._lab_path = label_path
         if transform_ops:
             self._transform_ops = create_operators(transform_ops)
 
