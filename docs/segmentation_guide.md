@@ -95,7 +95,7 @@ python tools/test_egret.py -c ./configs/image_segmentation/HRNet_Contrast_W48.ya
 ## Performance
 ### Image Sematic Segmentation
 | Model | mIoU (with 5 images) | time(ms)<br>bs=1 | time(ms)<br>bs=4 | Download<br>Address |
-|:----:|:----:|:----:|:----:|:----:|:----|
+|:----:|:----:|:----:|:----:|:----|
 |HRNet_Contrast_W48<br>(d16-w16-b16)|0.593|null|null|sftp://transfer.imgtec.com/paddle_models/paddle_segmentation/HRNet_Contrast_W48-AX2185-d16b16w16-ncsdk_2_8-arrch64_linux_gnu.ro|
 |HRNet_Contrast_W48<br>(non-quant)|0.593|null|null|[link](https://bj.bcebos.com/paddleseg/dygraph/cityscapes/HRNet_W48_contrast_cityscapes_1024x512_60k/model.pdparams)|
 
