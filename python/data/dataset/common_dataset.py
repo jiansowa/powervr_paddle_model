@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import numpy as np
-from PIL import Image
 from utils import logger
 from .dataset import Dataset
 from ..preprocess import transform
@@ -33,10 +32,7 @@ class CommonDataset(Dataset):
             if self._transform_ops:
                 img = transform(img, self._transform_ops)
             img = img.transpose((2, 0, 1))
-            this_label = self.labels[idx]
-            if isinstance(self.labels[idx], str):  # Ground Truth is .png file path
-                this_label = np.asarray(Image.open(self.labels[idx]))
-            return (img, this_label)
+            return (img, self.labels[idx])
 
         except Exception as ex:
             logger.error("Exception occured when parse line: {} with msg: {}".

@@ -1,4 +1,6 @@
 import numpy as np
+import os
+from PIL import Image
 from sklearn.metrics import top_k_accuracy_score
 
 class mIou(object):
@@ -57,8 +59,11 @@ class mIou(object):
         return miou
 
     def __call__(self, out, label):
+        assert isinstance(label[0], (str))
+        assert os.path.exists(label[0])
+        np_label = np.array([np.asarray(Image.open(label[0]))]) # Ground Truth is .png file path
         metric_dict = dict()
-        self.calculate_area(out, label, num_classes = self.num_classes)
+        self.calculate_area(out, np_label, num_classes = self.num_classes)
         metric_dict['miou'] = self.mean_iou(self.intersect_area_all, self.pred_area_all, self.label_area_all)
         return metric_dict
 
