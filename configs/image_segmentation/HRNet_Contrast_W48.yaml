@@ -41,7 +41,7 @@ DataLoader:
   Eval:
     dataset: 
       name: CityScapesDataset
-      image_root: /home/asa/PaddleSeg/PaddleSeg/data/leftImg8bit/val
+      data_root: /home/asa/PaddleSeg/PaddleSeg/data/leftImg8bit/val
       label_path: /home/asa/PaddleSeg/PaddleSeg/data/gtFine/val
       transform_ops:
         - DecodeImage:
