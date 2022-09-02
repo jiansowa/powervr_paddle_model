@@ -4,6 +4,10 @@ import importlib
 #from . import topk
 
 from .topk import Topk, MultiLabelTopk
+from .save_image import SaveImages
+from . import genaral
+from . import nms
+from .decode import ppyoloe
 
 
 def build_postprocess(config):

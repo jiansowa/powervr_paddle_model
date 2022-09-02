@@ -2,16 +2,17 @@
 import os
 import cv2
 import numpy as np
-from .dataset import MapDataset
+from .dataset import Dataset
 from ..preprocess import transform
 from ..utils import create_operators
 from pycocotools.coco import COCO
 
-class COCODataset(MapDataset):
+class COCODataset(Dataset):
     def __init__(self,
                  image_dir=None,
                  annotation_path=None,
-                 transform_ops=None):
+                 transform_ops=None,
+                 num_image=None):
         super().__init__()
 
         self.image_dir = image_dir
@@ -29,8 +30,14 @@ class COCODataset(MapDataset):
             for catid, clsid in self.catid2clsid.items()
         })
 
+        if isinstance(num_image, int) and num_image <= 0 or num_image > len(self.imgids):
+            raise ValueError("num image must >= or <=  %s", len(self.imgids))
+        self.num_image = num_image
+
     def __len__(self):
-        return len(self.imgids)
+        if self.num_image is None:
+            return len(self.imgids)
+        return self.num_image
 
     def __getitem__(self, item):
         img_id = self.imgids[item]
@@ -65,5 +72,22 @@ class COCODataset(MapDataset):
 
         shape = np.array(shape)
         img_id = np.array(img_id)
-        return image, gt_bbox, gt_class, shape, img_id
+        return image, (gt_bbox, gt_class, shape, img_id)
 
+    @classmethod
+    def create_inputs_batch(cls, data_list):
+        return np.array(data_list)
+
+    @classmethod
+    def create_labels_batch(cls, label_list):
+        gt_bboxes = []
+        gt_classes = []
+        shapes = []
+        img_ids = []
+        for gt_bbox, gt_class, shape, img_id in label_list:
+            gt_bboxes.append(gt_bbox)
+            gt_classes.append(gt_class)
+            shapes.append(shape)
+            img_ids.append(img_id)
+
+        return gt_bboxes, gt_classes, shapes, img_ids
