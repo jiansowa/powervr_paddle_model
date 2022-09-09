@@ -85,7 +85,9 @@ class Egret(object):
 
             # image input
             out = self.inference_func(batch[0])
-
+            if isinstance(out, dict) and "tvm_infer_0_out_0.bin" in out:
+                out = out["tvm_infer_0_out_0.bin"]
+                out.shape = [batch_size] + self.config["Model"]["PowerVR"]['output_shape']
             # calc metric
             if self.eval_metric_func is not None:
                 metric_dict = self.eval_metric_func(out, batch[1])
