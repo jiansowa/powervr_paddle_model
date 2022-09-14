@@ -16,12 +16,12 @@ from __future__ import print_function
 
 import numpy as np
 from utils import logger
-from .dataset import Dataset
+from .dataset import MapDataset
 from ..preprocess import transform
 from ..utils import create_operators
 
 
-class CommonDataset(Dataset):
+class CommonDataset(MapDataset):
     def __init__(
             self,
             data_root,

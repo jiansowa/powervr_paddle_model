@@ -14,7 +14,7 @@
 
 import numpy as np
 from data.sampler.batch_sampler import BatchSampler
-from data.dataset import Dataset#, IterableDataset
+from data.dataset import Dataset#,IterableDataset
 
 
 __all__ = ['DataLoader']
@@ -49,6 +49,7 @@ class DataLoader(object):
                 batch_size=batch_size,
                 shuffle=shuffle,
                 drop_last=drop_last)
+
 
         self.drop_last = drop_last
         self._sampler_iter = iter(self.batch_sampler)
